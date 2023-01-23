@@ -51,8 +51,8 @@ begin
       fifo_read;
    end
    repeat(7)
-      fifi_read;
-   #100 $finish;
+      fifo_read;
+   #150 $finish;
  end
 
  initial
