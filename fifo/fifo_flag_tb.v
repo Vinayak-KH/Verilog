@@ -19,7 +19,7 @@ begin
 end
 endtask
 
-task write(input [7:0] d);
+task fifo_write(input [7:0] d);
 begin
    @(negedge clk);
    wr = 1'b1;
@@ -29,7 +29,7 @@ begin
 end
 endtask
 
-task read;
+task fifo_read;
 begin
    @(negedge clk);
    rd = 1'b1;
@@ -42,9 +42,16 @@ initial
 begin
    reset;
    repeat(17)
-      write({$random} % 8);
-   repeat(17)
-      read;
+      fifo_write({$random} % 8);
+   repeat(10)
+      fifo_read;
+   repeat(6)
+   begin
+      fifo_write({$random} % 8);
+      fifo_read;
+   end
+   repeat(7)
+      fifi_read;
    #100 $finish;
  end
 
